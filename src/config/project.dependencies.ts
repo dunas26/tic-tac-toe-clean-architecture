@@ -1,6 +1,6 @@
 import { globalContainer } from "./inversify.config";
 import { Container } from "inversify";
-import { StartNewGame } from "../usecases";
+import { StartNewGame } from "../application/usecases";
 import { AppController } from "../infrastructure/controllers";
 import { BoardPersistency } from "../infrastructure/persistency/board.persistency";
 

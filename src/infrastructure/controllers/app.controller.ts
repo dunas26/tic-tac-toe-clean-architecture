@@ -1,5 +1,5 @@
 import { inject, injectable } from "inversify";
-import { StartNewGame } from "../../usecases";
+import { StartNewGame } from "../../application/usecases";
 import { BoardModel } from "../../domain/models";
 import { AppPort } from "../ports/in/app.port";
 

@@ -1,6 +1,6 @@
 import { inject, injectable } from "inversify";
 import { StartNewGameUseCase } from "./usecase";
-import type { BoardRepository } from "../domain/repositories";
+import type { BoardRepository } from "../../domain/repositories";
 
 @injectable()
 export class StartNewGame implements StartNewGameUseCase {
