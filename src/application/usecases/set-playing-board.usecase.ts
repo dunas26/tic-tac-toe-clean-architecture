@@ -1,8 +1,9 @@
-import { inject } from "inversify";
+import { inject, injectable } from "inversify";
 import { BoardState } from "../../infrastructure/persistency/states";
 import { BoardModel } from "../../domain/models";
 import { SetPlayingBoardUseCase } from "./usecase";
 
+@injectable()
 export class SetPlayingBoard implements SetPlayingBoardUseCase {
     constructor(
         @inject('BoardStatePort') private boardState: BoardState

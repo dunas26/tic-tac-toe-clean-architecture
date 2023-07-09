@@ -4,6 +4,7 @@ import { StartNewGame } from "../application/usecases";
 import { AppController } from "../infrastructure/controllers";
 import { BoardPersistency } from "../infrastructure/persistency/board.persistency";
 import { BoardState } from "../infrastructure/persistency/states";
+import { SetPlayingBoard } from "../application/usecases/set-playing-board.usecase";
 
 type Constructor = new (...args: any[]) => any;
 
@@ -20,6 +21,7 @@ function dependOnInterface<T extends Constructor>(objectName: string, target: T,
 export const buildDependencies = () => {
     dependOnClass(AppController);
     dependOnClass(StartNewGame);
+    dependOnClass(SetPlayingBoard);
     dependOnInterface('BoardRepository', BoardPersistency);
     dependOnInterface('BoardStatePort', BoardState);
 }
