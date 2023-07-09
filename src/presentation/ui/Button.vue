@@ -14,8 +14,8 @@ defineEmits(['buttonClick']);
 
 const colorStyles = computed(() => {
   return buttonStyle.value == "main"
-    ? "bg-emerald-500 text-white focus:outline-white border-transparent"
-    : "bg-white text-emerald-500 focus:outline-emerald-500 border-emerald-500 focus:border-transparent";
+    ? "bg-secondary-500 text-primary focus:outline-primary border-transparent"
+    : "bg-primary text-secondary-500 focus:outline-secondary-500 border-secondary-500 focus:border-transparent";
 });
 </script>
 <template>
