@@ -1,10 +1,10 @@
 import { inject, injectable } from "inversify";
-
-import { BoardModel } from "../domain/models";
-import { StartNewGame } from "../usecases/";
+import { StartNewGame } from "../../usecases";
+import { BoardModel } from "../../domain/models";
+import { AppPort } from "../ports/in/app.port";
 
 @injectable()
-export class AppController {
+export class AppController implements AppPort {
     constructor(
         @inject(StartNewGame.name) private startNewGameUseCase?: StartNewGame
     ) { };

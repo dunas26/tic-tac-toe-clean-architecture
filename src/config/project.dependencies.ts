@@ -1,7 +1,7 @@
 import { globalContainer } from "./inversify.config";
-import { AppController } from "../controllers";
 import { Container } from "inversify";
 import { StartNewGame } from "../usecases";
+import { AppController } from "../infrastructure/controllers";
 
 type Constructor = new (...args: any[]) => any;
 
