@@ -1,0 +1,1 @@
+export interface StartNewGameUseCase extends UseCase { }

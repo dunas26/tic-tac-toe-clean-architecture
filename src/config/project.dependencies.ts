@@ -1,14 +1,23 @@
-import * as Vue from "vue";
+import { globalContainer } from "./inversify.config";
 import { AppController } from "../controllers";
+import { Container } from "inversify";
+import { StartNewGame } from "../usecases";
 
-type Constructor = new(...args: any[]) => any;
+type Constructor = new (...args: any[]) => any;
 
-export const buildDependencies = (app: Vue.App) => {
-    app.provide(AppController.name, new AppController());
+function dependOn<T extends Constructor>(object: T, container: Container = globalContainer) {
+    const token = object.name;
+    return container.bind(token).to(object);
 }
 
-export const vueDependency = <T extends Constructor>(
-    object: T
+export const buildDependencies = () => {
+    dependOn(AppController);
+    dependOn(StartNewGame);
+}
+
+export const dependency = <T extends Constructor>(
+    object: T, container: Container = globalContainer
 ): InstanceType<T> | undefined => {
-    return Vue.inject<T>(object.name) as InstanceType<T>;
+    const token = object.name;
+    return container.get(token);
 }
