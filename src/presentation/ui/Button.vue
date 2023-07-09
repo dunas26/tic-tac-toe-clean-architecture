@@ -2,7 +2,7 @@
 import { computed, toRefs } from "vue";
 export interface ButtonProps {
   label: string;
-  buttonStyle: "main" | "secondary";
+  buttonStyle?: "main" | "secondary";
 }
 
 const props = withDefaults(defineProps<ButtonProps>(), {
