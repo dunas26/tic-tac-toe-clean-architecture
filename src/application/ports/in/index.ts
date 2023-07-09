@@ -1,0 +1,1 @@
+export type { BoardStatePort } from "./board-state.port";

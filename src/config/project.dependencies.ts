@@ -3,6 +3,7 @@ import { Container } from "inversify";
 import { StartNewGame } from "../application/usecases";
 import { AppController } from "../infrastructure/controllers";
 import { BoardPersistency } from "../infrastructure/persistency/board.persistency";
+import { BoardState } from "../infrastructure/persistency/states";
 
 type Constructor = new (...args: any[]) => any;
 
@@ -20,6 +21,7 @@ export const buildDependencies = () => {
     dependOnClass(AppController);
     dependOnClass(StartNewGame);
     dependOnInterface('BoardRepository', BoardPersistency);
+    dependOnInterface('BoardStatePort', BoardState);
 }
 
 export const dependency = <T extends Constructor>(
