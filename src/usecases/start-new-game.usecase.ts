@@ -1,9 +1,13 @@
-import { injectable } from "inversify";
+import { inject, injectable } from "inversify";
 import { StartNewGameUseCase } from "./usecase";
+import type { BoardRepository } from "../domain/repositories";
 
 @injectable()
 export class StartNewGame implements StartNewGameUseCase {
+    constructor(
+        @inject('BoardRepository') private repository: BoardRepository
+    ) {}
     public do() {
-        console.log("Creating new game");
+        return this.repository.create();
     }
 }
