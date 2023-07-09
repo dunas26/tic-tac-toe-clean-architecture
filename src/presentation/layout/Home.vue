@@ -3,6 +3,7 @@ import { ref } from "vue";
 import { dependency } from "../../config/project.dependencies";
 import { AppController } from "../../infrastructure/controllers/app.controller";
 import Button from "../ui/Button.vue";
+import Title from "../ui/Title.vue";
 
 const controller = dependency(AppController);
 const boardId = ref<string | undefined>(undefined);
@@ -16,9 +17,7 @@ function continueGame() {
 }
 </script>
 <template>
-  <h1 class="font-bold text-6xl mt-[10rem] text-center text-secondary-600">
-    Tic tac toe
-  </h1>
+  <Title label="Tic tac toe" />
   <span class="mt-4 h-6">
     <p v-if="boardId" class="text-terciary/40">Playing board: #{{ boardId }}</p>
   </span>

@@ -2,6 +2,7 @@
 import { useRouter } from "vue-router";
 import Button from "../ui/Button.vue";
 import { onMounted } from "vue";
+import Title from "../ui/Title.vue";
 
 const router = useRouter();
 
@@ -11,9 +12,7 @@ function toHome() {
 }
 </script>
 <template>
-  <h1 class="font-bold text-6xl mt-[10rem] text-center text-secondary-600">
-    404
-  </h1>
+  <Title label="404" />
   <span class="mt-4 h-6">
     <p class="text-terciary/40">Route has not been found</p>
   </span>
