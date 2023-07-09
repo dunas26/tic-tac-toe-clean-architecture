@@ -6,7 +6,8 @@ export const buildMainRouter = () => {
         history: createWebHistory(),
         routes: [
             { path: '/', redirect: '/home' },
-            { path: '/home', component: () => import('../presentation/layout/Home.vue') }
+            { path: '/home', component: () => import('../presentation/layout/Home.vue') },
+            { path: '/:path(.*)*', name: 'Not Found', component: () => import('../presentation/layout/404.vue') }
         ]
     })
 }
