@@ -17,7 +17,7 @@ function continueGame() {
 </script>
 <template>
   <main
-    class="max-w-md md:my-2 md:border-2 border-terciary/10 rounded-lg flex flex-col mx-auto justify-start items-center bg-primary h-full"
+    class="max-w-md w-full box-content md:my-2 md:border-2 border-terciary/10 rounded-lg flex flex-col mx-auto justify-start items-center bg-primary h-full"
   >
     <h1 class="font-bold text-6xl mt-[10rem] text-center text-secondary-600">
       Tic tac toe
