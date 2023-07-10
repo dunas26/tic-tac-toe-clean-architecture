@@ -14,10 +14,13 @@ const router = useRouter();
 onMounted(() => {
     board.value = controller?.getCurrentBoard();
     if(!board.value) router.push({ name: 'home' });
+    controller?.matchStart();
 })
 
 function onTileClick(index: number) {
-    board.value?.mark(index, 'X')
+    const mark = controller?.getCurrentMark();
+    if(!mark) return;
+    board.value?.mark(index, mark);
 }
 
 </script>

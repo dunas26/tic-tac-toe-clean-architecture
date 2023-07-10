@@ -1,9 +1,10 @@
-import { BoardModel } from "../../../domain/models";
 import { Mark } from "../../../domain/values/tile.value";
 
-export interface GamePort {
-    getCurrentBoard(): BoardModel;
+export interface GameStatePort {
     getCurrentMark(): Mark;
+    getStartTime(): number;
+    getEndTime(): number;
     matchStart(): void;
     matchStop(winner: Mark): void;
+    switchTurn(): Mark;
 }

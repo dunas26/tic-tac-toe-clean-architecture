@@ -6,6 +6,7 @@ import { BoardPersistency } from "../infrastructure/persistency/board.persistenc
 import { BoardState } from "../infrastructure/persistency/states";
 import { SetPlayingBoard } from "../application/usecases/set-playing-board.usecase";
 import { GetCurrentBoard } from "../application/usecases/get-current-board.usecase";
+import { GameState } from "../infrastructure/persistency/states/game.state";
 
 type Constructor = new (...args: any[]) => any;
 
@@ -22,6 +23,7 @@ export const buildDependencies = () => {
     dependOn('GetCurrentBoardUseCase', GetCurrentBoard);
     dependOn('BoardRepository', BoardPersistency);
     dependOn('BoardStatePort', BoardState);
+    dependOn('GameStatePort', GameState);
 }
 
 export const dependency = <T>(
