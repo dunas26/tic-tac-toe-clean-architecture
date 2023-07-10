@@ -51,6 +51,7 @@ export class GameController implements GamePort {
         return hasWinner;
     }
 
+
     hasNoStepsLeft(board: BoardModel): boolean {
         const stepsLeft = board.getStepsLeft() ?? 9;
         return stepsLeft <= 0;

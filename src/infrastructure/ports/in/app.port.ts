@@ -2,5 +2,5 @@ import { BoardModel } from "../../../domain/models";
 
 export interface AppPort {
     startNewGame(): BoardModel;
-    getCurrentBoardId(): string;
+    getCurrentBoardId(): string | undefined;
 }

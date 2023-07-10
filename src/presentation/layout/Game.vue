@@ -8,10 +8,10 @@ import Winner from "../Winner.vue";
 import CurrentTurn from "../CurrentTurn.vue";
 import { useGameReport } from "../../infrastructure/composables/game-report";
 import { dependency } from "../../config/project.dependencies";
-import { GameController } from "../../infrastructure/controllers";
 import { BoardModel } from "../../domain/models";
+import { GamePort } from "../../infrastructure/ports/in";
 
-const controller = dependency<GameController>("GamePort");
+const controller = dependency<GamePort>("GamePort");
 if (!controller)
   throw new Error("Cannot instanciate GameController on Game.vue");
 

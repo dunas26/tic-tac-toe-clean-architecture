@@ -35,7 +35,7 @@ onMounted(() => {
   >
     <header v-if="showNav" class="flex items-center justify-between w-full p-4 h-14 border-b-2 border-b-terciary/10 shadow-md">
       <h1 class="text-2xl font-semibold text-secondary-600">Tic tac toe</h1>
-      <span class="flex items-center gap-1 text-terciary/40">
+      <span v-show="boardId" class="flex items-center gap-1 text-terciary/40">
         <p>Board ID:</p>
         <span class="mr-2">#</span>
         <span class="px-2 py-1 rounded-md bg-gray-200 text-gray-500 font-mono">{{ boardId }}</span>

@@ -19,7 +19,8 @@ export class AppController implements AppPort {
         return board;
     }
 
-    public getCurrentBoardId(): string {
+    public getCurrentBoardId(): string | undefined {
+        if(!this.boardState) return undefined;
         return this.boardState.getCurrentBoard().id;
     }
 }

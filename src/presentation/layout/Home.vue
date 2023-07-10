@@ -4,9 +4,9 @@ import Title from "../ui/Title.vue";
 import { ref } from "vue";
 import { dependency } from "../../config/project.dependencies";
 import { useRouter } from "vue-router";
-import { AppController } from "../../infrastructure/controllers";
+import { AppPort } from "../../infrastructure/ports/in";
 
-const controller = dependency<AppController>('AppPort');
+const controller = dependency<AppPort>('AppPort');
 const boardId = ref<string | undefined>(undefined);
 const router = useRouter();
 
