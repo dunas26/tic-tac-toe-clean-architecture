@@ -1,9 +1,8 @@
 import { inject, injectable } from "inversify";
-import { StartNewGame } from "../../application/usecases";
+import { SetPlayingBoard, StartNewGame } from "../../application/usecases";
 import { BoardModel } from "../../domain/models";
 import { AppPort } from "../ports/in/app.port";
-import { SetPlayingBoard } from "../../application/usecases/set-playing-board.usecase";
-import type { BoardStatePort } from "../../application/ports/in";
+import type { BoardStatePort, StoragePort } from "../../application/ports/in";
 
 @injectable()
 export class AppController implements AppPort {
@@ -11,6 +10,7 @@ export class AppController implements AppPort {
         @inject('StartNewGameUseCase') private _startNewGame: StartNewGame,
         @inject('SetPlayingBoardUseCase') private setPlayingBoard: SetPlayingBoard,
         @inject('BoardStatePort') private boardState: BoardStatePort,
+        @inject('StoragePort') private storage: StoragePort
     ) { };
 
     public startNewGame(): BoardModel {
@@ -22,5 +22,13 @@ export class AppController implements AppPort {
     public getCurrentBoardId(): string | undefined {
         if(!this.boardState) return undefined;
         return this.boardState.getCurrentBoard().id;
+    }
+
+    public canLoadBoard(id: string): boolean {
+        return this.storage.has(`board_${id}`);
+    }
+
+    public loadStoredBoard(id: string): BoardModel | null {
+        return this.storage.load(`board_${id}`);
     }
 }

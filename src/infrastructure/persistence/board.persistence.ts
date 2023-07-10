@@ -4,7 +4,7 @@ import { BoardRepository } from "../../domain/repositories";
 import { uid } from "uid";
 
 @injectable()
-export class BoardPersistency implements BoardRepository {
+export class BoardPersistence implements BoardRepository {
     create(): BoardModel {
         return new BoardModel(uid(), 0);
     }

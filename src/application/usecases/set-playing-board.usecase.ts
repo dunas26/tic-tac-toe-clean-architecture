@@ -1,5 +1,5 @@
 import { inject, injectable } from "inversify";
-import { BoardState } from "../../infrastructure/persistency/states";
+import { BoardState } from "../../infrastructure/persistence/states";
 import { BoardModel } from "../../domain/models";
 import { SetPlayingBoardUseCase } from "./usecase";
 
