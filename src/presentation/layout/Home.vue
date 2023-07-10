@@ -30,6 +30,7 @@ function continueGame() {
     return;
   }
   controller.loadStoredBoard(boardIdToLoad.value);
+  router.push({ name: "game" });
 }
 </script>
 <template>

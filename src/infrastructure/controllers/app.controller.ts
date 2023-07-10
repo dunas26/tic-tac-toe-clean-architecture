@@ -3,6 +3,8 @@ import { SetPlayingBoard, StartNewGame } from "../../application/usecases";
 import { BoardModel } from "../../domain/models";
 import { AppPort } from "../ports/in/app.port";
 import type { BoardStatePort, StoragePort } from "../../application/ports/in";
+import { TileValue } from "../../domain/values";
+import { Mark } from "../../domain/values/tile.value";
 
 @injectable()
 export class AppController implements AppPort {
@@ -29,6 +31,9 @@ export class AppController implements AppPort {
     }
 
     public loadStoredBoard(id: string): BoardModel | null {
-        return this.storage.load(`board_${id}`);
+        const board = this.storage.load(`board_${id}`) as string[];
+        const model = new BoardModel(id, 0, board.map(t => new TileValue(t as Mark)));
+        this.setPlayingBoard.do(model);
+        return model;
     }
 }
