@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { computed, toRefs } from 'vue';
+import { toRefs } from 'vue';
 import { Mark } from '../domain/values/tile.value';
+import { useMarkColor } from '../infrastructure/composables/mark-color';
 
 export interface CurrentTurnProps {
     mark: Mark;
@@ -8,11 +9,7 @@ export interface CurrentTurnProps {
 const props = defineProps<CurrentTurnProps>();
 const { mark } = toRefs(props);
 
-const markColor = computed(() => {
-    return mark.value == "X" 
-    ? "text-red-400"
-    : "text-blue-400"
-})
+const { textColor } = useMarkColor(mark);
 </script>
 <template>
   <section
@@ -21,6 +18,6 @@ const markColor = computed(() => {
     <span class="text-xl font-semibold text-terciary/30">Current turn: </span>
     <span 
     class="font-extrabold text-2xl"
-    :class="markColor">{{ mark }}</span>
+    :class="textColor">{{ mark }}</span>
   </section>
 </template>

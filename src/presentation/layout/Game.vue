@@ -7,6 +7,7 @@ import { dependency } from '../../config/project.dependencies';
 import { GameController } from '../../infrastructure/controllers';
 import { BoardModel } from '../../domain/models';
 import CurrentTurn from '../CurrentTurn.vue';
+import Winner from '../Winner.vue';
 
 const controller = dependency<GameController>('GamePort');
 const board = ref<BoardModel | undefined>(undefined);
@@ -26,6 +27,11 @@ const hasWinner = computed(() => {
     if(!board.value) return false;
     return controller?.getWinner(board.value as BoardModel);
 });
+
+const winner = computed(() => {
+    if(!board.value) return;
+    return controller?.getWinner(board.value as BoardModel);
+})
 
 function onTileClick(index: number) {
     const mark = controller?.getCurrentMark();
@@ -53,6 +59,7 @@ function quitGame() {
     <main class="flex flex-col w-full h-full">
         <header class="p-12">
             <CurrentTurn v-if="!hasWinner && nextMark" :mark="nextMark" />
+            <Winner v-else :winner="winner"/>
         </header>
         <section class="flex-1">
             <Board v-if="board" :board="(board as BoardModel)" @tile-click="onTileClick($event)"/>
