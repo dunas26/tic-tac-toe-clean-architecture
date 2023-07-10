@@ -21,7 +21,7 @@ export const useGameStore = defineStore('game', {
             this.startTime = Date.now();
             this.currentMark = Math.random() > 0.5 ? "X" : "O";
         },
-        matchStop(winner: Mark) {
+        matchStop(winner: Mark | undefined) {
             if(this.state != "started") throw new Error("Illegal match state");
             if(winner == "") throw new Error("Illegal winner");
             this.state = "finished";

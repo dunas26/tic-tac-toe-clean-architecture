@@ -19,8 +19,23 @@ onMounted(() => {
 
 function onTileClick(index: number) {
     const mark = controller?.getCurrentMark();
-    if(!mark) return;
-    board.value?.mark(index, mark);
+    if(!mark || !board.value) return;
+
+    const boardMarked = controller?.markBoard(board.value as BoardModel, index, mark);
+    if(!boardMarked) return;
+
+    const stepsLeft = controller?.stepsLeft(board.value as BoardModel) ?? 9;
+    if(stepsLeft <= 0) {
+        controller?.matchStop(undefined);
+        return;
+    };
+
+    controller?.switchTurn();
+    controller?.getWinner(board.value as BoardModel);
+}
+
+function quitGame() {
+    router.push('/home');
 }
 
 </script>
@@ -30,7 +45,7 @@ function onTileClick(index: number) {
             <Board v-if="board" :board="(board as BoardModel)" @tile-click="onTileClick($event)"/>
         </section>
         <footer class="flex flex-col mb-24 px-12 w-full">
-            <Button label="quit" />
+            <Button label="quit" @button-click="quitGame" />
         </footer>
     </main>
 </template>

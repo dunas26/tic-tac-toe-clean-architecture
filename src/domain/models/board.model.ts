@@ -8,14 +8,28 @@ export class BoardModel {
         this.setUpTiles(tiles);
     }
     public readonly id: string;
-    public readonly moveCount: number;
+    public moveCount: number;
     public tiles!: TileValue[];
+    private winner?: Mark;
 
-    public mark(tile: number, mark: Mark): this {
+    public mark(tile: number, mark: Mark): boolean {
+        if(this.winner) return false;
         if (!this.validTileNumber(tile)) throw new Error("Invalid tile number");
-        if(!this.canMarkTile(tile)) return this;
+        if (!this.canMarkTile(tile)) return false;
         this.tiles[tile] = new TileValue(mark);
-        return this;
+        this.moveCount++;
+        this.winner = this.evaluateWinner();
+        return true;
+    }
+
+    public getWinner(): Mark | undefined {
+        if(this.winner) return this.winner;
+        const winner = this.evaluateWinner();
+        return winner;
+    }
+
+    public getStepsLeft() {
+        return 9 - this.moveCount;
     }
 
     private validTileNumber(tile: number): boolean {
@@ -32,5 +46,27 @@ export class BoardModel {
 
     private canMarkTile(index: number): boolean {
         return this.tiles[index].content == "";
+    }
+
+    private evaluateWinner(): Mark | undefined {
+        const rows = [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6],
+        ];
+
+        const winner = rows.find(([a, b, c]) => {
+            return this.tiles[a].content != ""
+                && this.tiles[a].equalTo(this.tiles[b])
+                && this.tiles[b].equalTo(this.tiles[c]);
+        });
+        return winner
+            ? this.tiles[winner[0]].content
+            : undefined;
     }
 }

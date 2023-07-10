@@ -16,16 +16,30 @@ export class GameController implements GamePort {
     }
 
     getCurrentMark(): Mark {
-        const mark = this.gameState.getCurrentMark();
-        this.gameState.switchTurn();
-        return mark;
+        return this.gameState.getCurrentMark();
+    }
+
+    switchTurn(): Mark {
+        return this.gameState.switchTurn();
     }
 
     matchStart(): void {
         this.gameState.matchStart();
     }
 
-    matchStop(winner: Mark): void {
+    matchStop(winner: Mark | undefined): void {
         this.gameState.matchStop(winner);
+    }
+
+    markBoard(board: BoardModel, index: number, mark: Mark): boolean {
+        return board.mark(index, mark);
+    }
+
+    getWinner(board: BoardModel): Mark | undefined {
+        return board.getWinner();
+    }
+
+    stepsLeft(board: BoardModel) {
+        return board.getStepsLeft();
     }
 }

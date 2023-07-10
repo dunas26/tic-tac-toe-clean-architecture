@@ -5,6 +5,6 @@ export interface GameStatePort {
     getStartTime(): number;
     getEndTime(): number;
     matchStart(): void;
-    matchStop(winner: Mark): void;
+    matchStop(winner: Mark | undefined): void;
     switchTurn(): Mark;
 }
