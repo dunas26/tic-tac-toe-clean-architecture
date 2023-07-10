@@ -13,3 +13,6 @@ export interface SetPlayingBoardUseCase extends UseCase {
 export interface GetCurrentBoardUseCase extends UseCase {
     do(): BoardModel;
 }
+export interface SaveBoardUseCase extends UseCase {
+    do(board: BoardModel): boolean;
+}

@@ -1,6 +1,6 @@
 import { globalContainer } from "./inversify.config";
 import { Container } from "inversify";
-import { GetCurrentBoard, SetPlayingBoard, StartNewGame } from "../application/usecases";
+import { GetCurrentBoard, SaveBoard, SetPlayingBoard, StartNewGame } from "../application/usecases";
 import { AppController, GameController } from "../infrastructure/controllers";
 import { BoardPersistence, LocalStoragePersistence } from "../infrastructure/persistence";
 import { BoardState, GameState } from "../infrastructure/persistence/states";
@@ -18,6 +18,7 @@ export const buildDependencies = () => {
     dependOn('StartNewGameUseCase', StartNewGame);
     dependOn('SetPlayingBoardUseCase', SetPlayingBoard);
     dependOn('GetCurrentBoardUseCase', GetCurrentBoard);
+    dependOn('SaveBoardUseCase', SaveBoard);
     dependOn('BoardRepository', BoardPersistence);
     dependOn('BoardStatePort', BoardState);
     dependOn('GameStatePort', GameState);

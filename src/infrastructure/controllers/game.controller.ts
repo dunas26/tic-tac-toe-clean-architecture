@@ -1,7 +1,7 @@
 import { inject, injectable } from "inversify";
 import { GamePort } from "../ports/in";
 import { BoardModel } from "../../domain/models";
-import type { GetCurrentBoardUseCase } from "../../application/usecases/usecase";
+import type { GetCurrentBoardUseCase, SaveBoardUseCase } from "../../application/usecases/usecase";
 import type { GameStatePort } from "../../application/ports/in";
 import { Mark } from "../../domain/values/tile.value";
 
@@ -9,7 +9,8 @@ import { Mark } from "../../domain/values/tile.value";
 export class GameController implements GamePort {
     constructor(
         @inject('GetCurrentBoardUseCase') private _getCurrentBoard: GetCurrentBoardUseCase,
-        @inject('GameStatePort') private gameState: GameStatePort
+        @inject('GameStatePort') private gameState: GameStatePort,
+        @inject('SaveBoardUseCase') private _saveBoard: SaveBoardUseCase,
     ) { }
     getCurrentBoard(): BoardModel {
         return this._getCurrentBoard.do();
@@ -55,6 +56,11 @@ export class GameController implements GamePort {
     hasNoStepsLeft(board: BoardModel): boolean {
         const stepsLeft = board.getStepsLeft() ?? 9;
         return stepsLeft <= 0;
+    }
+
+    saveBoard(board: BoardModel): boolean {
+        this._saveBoard.do(board);
+        return true;
     }
 
     private markBoard(board: BoardModel, index: number, mark: Mark): boolean {

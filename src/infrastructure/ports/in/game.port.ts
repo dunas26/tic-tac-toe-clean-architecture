@@ -12,4 +12,5 @@ export interface GamePort {
     hasWinner(board: BoardModel): boolean;
     hasNoStepsLeft(board: BoardModel): boolean;
     switchTurn(): Mark;
+    saveBoard(board: BoardModel): boolean;
 }
