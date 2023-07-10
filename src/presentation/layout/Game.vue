@@ -48,7 +48,11 @@ function onTileClick(index: number) {
   controller?.switchTurn();
 }
 
-function quitGame() {
+async function quitGame() {
+  if(board.value?.id) {
+    controller?.saveBoard(board.value as BoardModel);
+    await navigator.clipboard.writeText(board.value.id);
+  }
   router.push("/home");
 }
 </script>
