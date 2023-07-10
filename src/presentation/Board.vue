@@ -16,7 +16,7 @@ function onTileClick(index: number) {
 </script>
 
 <template>
-  <section class="grid grid-cols-3 gap-2 w-[20rem] h-[20rem] mx-auto mt-32">
+  <section class="grid grid-cols-3 gap-2 w-[20rem] h-[20rem] mx-auto">
     <Tile
       v-for="(tile, index) in board.tiles"
       :key="index"

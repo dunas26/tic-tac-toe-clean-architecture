@@ -21,7 +21,7 @@ const { textColor } = winner?.value
       Winner: 
       <span :class="textColor" class="text-6xl font-extrabold">{{ winner }}</span>
     </p>
-    <p v-else class="w-fit">
+    <p v-else class="w-fit text-6xl font-medium text-terciary/40">
         Tie
     </p>
   </section>
