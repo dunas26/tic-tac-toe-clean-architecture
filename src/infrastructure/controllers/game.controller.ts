@@ -31,15 +31,32 @@ export class GameController implements GamePort {
         this.gameState.matchStop(winner);
     }
 
-    markBoard(board: BoardModel, index: number, mark: Mark): boolean {
-        return board.mark(index, mark);
-    }
-
     getWinner(board: BoardModel): Mark | undefined {
         return board.getWinner();
     }
 
     stepsLeft(board: BoardModel) {
         return board.getStepsLeft();
+    }
+
+    markBoardAt(board: BoardModel, index: number): boolean {
+        const mark = this.getCurrentMark();
+        if (!mark || !board) return false;
+        this.markBoard(board, index, mark);
+        return true;
+    }
+
+    hasWinner(board: BoardModel): boolean {
+        const hasWinner = board.getWinner() != undefined;
+        return hasWinner;
+    }
+
+    hasNoStepsLeft(board: BoardModel): boolean {
+        const stepsLeft = board.getStepsLeft() ?? 9;
+        return stepsLeft <= 0;
+    }
+
+    private markBoard(board: BoardModel, index: number, mark: Mark): boolean {
+        return board.mark(index, mark);
     }
 }

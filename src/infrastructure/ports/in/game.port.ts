@@ -6,7 +6,9 @@ export interface GamePort {
     getCurrentMark(): Mark;
     matchStart(): void;
     matchStop(winner: Mark): void;
-    markBoard(board: BoardModel, index: number, mark: Mark): boolean;
+    markBoardAt(board: BoardModel, index: number): boolean;
     getWinner(board: BoardModel): Mark | undefined;
     stepsLeft(board: BoardModel): number;
+    hasWinner(board: BoardModel): boolean;
+    hasNoStepsLeft(board: BoardModel): boolean;
 }

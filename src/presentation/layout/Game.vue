@@ -45,29 +45,22 @@ const hasStepsLeft = computed(() => {
 });
 
 function onTileClick(index: number) {
-  const mark = controller?.getCurrentMark();
-  if (!mark || !board.value) return;
-
-  if (!timer.value?.hasStarted) timer.value?.start();
-  const boardMarked = controller?.markBoard(
-    board.value as BoardModel,
-    index,
-    mark
-  );
+  const boardMarked = controller?.markBoardAt(board.value as BoardModel, index);
   if (!boardMarked) return;
+  if (!timer.value?.hasStarted) timer.value?.start();
 
-  const stepsLeft = controller?.stepsLeft(board.value as BoardModel) ?? 9;
-  if (stepsLeft <= 0) {
+  const hasWinner = 
+    controller?.hasWinner(board.value as BoardModel) ?? false;
+  const hasNoStepsLeft =
+    controller?.hasNoStepsLeft(board.value as BoardModel) ?? false;
+  const cannotContinue = hasWinner || hasNoStepsLeft;
+  if (cannotContinue) {
     controller?.matchStop(undefined);
     timer.value?.stop();
     return;
   }
 
   controller?.switchTurn();
-  if (hasWinner.value) {
-    console.log("STOP");
-    timer.value?.stop();
-  }
 }
 
 function quitGame() {
