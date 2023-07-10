@@ -16,11 +16,15 @@ onMounted(() => {
     if(!board.value) router.push({ name: 'home' });
 })
 
+function onTileClick(index: number) {
+    board.value?.mark(index, 'X')
+}
+
 </script>
 <template>
     <main class="flex flex-col w-full h-full">
         <section class="flex-1">
-            <Board v-if="board" />
+            <Board v-if="board" :board="(board as BoardModel)" @tile-click="onTileClick($event)"/>
         </section>
         <footer class="flex flex-col mb-24 px-12 w-full">
             <Button label="quit" />

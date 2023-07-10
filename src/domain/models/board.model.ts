@@ -9,10 +9,11 @@ export class BoardModel {
     }
     public readonly id: string;
     public readonly moveCount: number;
-    private tiles!: TileValue[];
+    public tiles!: TileValue[];
 
     public mark(tile: number, mark: Mark): this {
         if (!this.validTileNumber(tile)) throw new Error("Invalid tile number");
+        if(!this.canMarkTile(tile)) return this;
         this.tiles[tile] = new TileValue(mark);
         return this;
     }
@@ -27,5 +28,9 @@ export class BoardModel {
             ? tiles
             : Array<TileValue>(9).fill(new TileValue(""));
         return this;
+    }
+
+    private canMarkTile(index: number): boolean {
+        return this.tiles[index].content == "";
     }
 }
