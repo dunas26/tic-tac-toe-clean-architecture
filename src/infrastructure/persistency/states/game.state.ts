@@ -12,7 +12,7 @@ export class GameState implements GameStatePort {
     getStartTime(): number { return this.store.endTime ?? -1; }
     getEndTime(): number { return this.store.startTime ?? -1; }
     matchStart(): void { this.store.matchStart(); }
-    matchStop(winner: Mark): void { this.store.matchStop(winner); }
+    matchStop(winner: Mark | undefined): void { this.store.matchStop(winner); }
     switchTurn(): Mark { return this.store.switchTurn(); }
 
 }
