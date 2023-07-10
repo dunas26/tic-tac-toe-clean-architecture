@@ -4,12 +4,15 @@ import { dependency } from "../../config/project.dependencies";
 import { AppController } from "../../infrastructure/controllers/app.controller";
 import Button from "../ui/Button.vue";
 import Title from "../ui/Title.vue";
+import { useRouter } from "vue-router";
 
 const controller = dependency(AppController);
 const boardId = ref<string | undefined>(undefined);
+const router = useRouter();
 
 function startGame() {
   boardId.value = controller?.startNewGame().id;
+  router.push({ name: "game", query: { boardId: boardId.value } });
 }
 
 function continueGame() {
