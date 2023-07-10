@@ -3,7 +3,8 @@ import colors from 'tailwindcss/colors'
 export default {
   content: [
     "./index.html",
-    "./src/**/*.vue"
+    "./src/**/*.vue",
+    "./src/infrastructure/composables/mark-color.ts"
   ],
   theme: {
     extend: {
