@@ -11,4 +11,12 @@ export class BoardState implements BoardStatePort {
     setCurrentBoard(board: BoardModel): void {
         this.store.setCurrentBoard(board);
     }
+
+    getCurrentBoard(): BoardModel {
+        return this.store.getCurrentBoard;
+    }
+
+    isCurrentBoardDefined(): boolean {
+        return this.store.boardDefined;
+    }
 }

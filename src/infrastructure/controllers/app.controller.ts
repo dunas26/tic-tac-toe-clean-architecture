@@ -7,8 +7,8 @@ import { SetPlayingBoard } from "../../application/usecases/set-playing-board.us
 @injectable()
 export class AppController implements AppPort {
     constructor(
-        @inject(StartNewGame.name) private _startNewGame: StartNewGame,
-        @inject(SetPlayingBoard.name) private setPlayingBoard: SetPlayingBoard
+        @inject('StartNewGameUseCase') private _startNewGame: StartNewGame,
+        @inject('SetPlayingBoardUseCase') private setPlayingBoard: SetPlayingBoard
     ) { };
 
     public startNewGame(): BoardModel {

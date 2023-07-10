@@ -1,12 +1,12 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { dependency } from "../../config/project.dependencies";
-import { AppController } from "../../infrastructure/controllers/app.controller";
 import Button from "../ui/Button.vue";
 import Title from "../ui/Title.vue";
 import { useRouter } from "vue-router";
+import { AppController } from "../../infrastructure/controllers";
 
-const controller = dependency(AppController);
+const controller = dependency<AppController>('AppPort');
 const boardId = ref<string | undefined>(undefined);
 const router = useRouter();
 
