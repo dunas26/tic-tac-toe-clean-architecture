@@ -28,7 +28,6 @@ onMounted(() => {
   >
     <header v-if="showNav" class="flex items-center w-full p-4 h-14 border-b-2 border-b-terciary/10 shadow-md">
       <h1 class="text-2xl font-semibold text-secondary-600">Tic tac toe</h1>
-      <Button/>
     </header>
     <router-view />
   </main>

@@ -1,10 +1,11 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
+import Button from '../ui/Button.vue';
+import Board from '../Board.vue';
 import { dependency } from '../../config/project.dependencies';
 import { GameController } from '../../infrastructure/controllers';
-import Button from '../ui/Button.vue';
 import { BoardModel } from '../../domain/models';
-import { useRouter } from 'vue-router';
 
 const controller = dependency<GameController>('GamePort');
 const board = ref<BoardModel | undefined>(undefined);
@@ -19,7 +20,7 @@ onMounted(() => {
 <template>
     <main class="flex flex-col w-full h-full">
         <section class="flex-1">
-            
+            <Board v-if="board" />
         </section>
         <footer class="flex flex-col mb-24 px-12 w-full">
             <Button label="quit" />
