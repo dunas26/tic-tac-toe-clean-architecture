@@ -12,6 +12,19 @@ export function useTimer(updateMillis: number = 0) {
     const endTime = ref(0);
     const elapsed = ref(0);
 
+    const start = () => {
+        startTime.value = Date.now();
+        interval = setInterval(() => {
+            elapsed.value = Date.now() - startTime.value;
+        }, updateMillis);
+    };
+
+    const stop = () => {
+        endTime.value = Date.now()
+        elapsed.value = endTime.value - startTime.value;
+        clearInterval(interval);
+    };
+
     function pad(n: number, power: number = 1): string {
         const limit = Math.pow(10, power);
         let padding = '';
@@ -36,16 +49,11 @@ export function useTimer(updateMillis: number = 0) {
     })
 
     onMounted(() => {
-        startTime.value = Date.now();
-        interval = setInterval(() => {
-            elapsed.value = Date.now() - startTime.value;
-        }, updateMillis);
+        start();
     })
     onUnmounted(() => {
-        endTime.value = Date.now()
-        elapsed.value = endTime.value - startTime.value;
-        clearInterval(interval);
+        stop();
     })
 
-    return { startTime, endTime, elapsed, formatted };
+    return { startTime, endTime, elapsed, formatted, start, stop };
 }
