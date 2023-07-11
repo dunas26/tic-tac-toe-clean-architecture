@@ -33,7 +33,7 @@ const disableTab = computed(() => {
 })
 const disabledStyle = computed(() => {
   return disabled.value
-    ? "opacity-40"
+    ? "opacity-40 cursor-default"
     : "hover:shadow-md hover:translate-y-[-2px] active:translate-y-[2px] active:shadow-none active:before:bg-black/20";
 });
 
