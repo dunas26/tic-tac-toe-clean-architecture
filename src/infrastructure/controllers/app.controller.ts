@@ -22,7 +22,7 @@ export class AppController implements AppPort {
     }
 
     public getCurrentBoardId(): string | undefined {
-        if(!this.boardState) return undefined;
+        if (!this.boardState?.getCurrentBoard()) return undefined;
         return this.boardState.getCurrentBoard().id;
     }
 
