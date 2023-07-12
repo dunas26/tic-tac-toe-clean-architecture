@@ -8,10 +8,11 @@ import { useRouter } from "vue-router";
 import { AppPort } from "../../infrastructure/ports/in";
 
 const controller = dependency<AppPort>("AppPort");
+
 const boardId = ref<string | undefined>(undefined);
 const boardIdToLoad = ref<string | undefined>(undefined);
-
 const errorMessage = ref<string | undefined>(undefined);
+
 const router = useRouter();
 
 const allowLoad = computed(() => {
