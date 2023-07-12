@@ -10,6 +10,7 @@ import { useGameReport } from "../../infrastructure/composables/game-report";
 import { dependency } from "../../config/project.dependencies";
 import { BoardModel } from "../../domain/models";
 import { GamePort } from "../../infrastructure/ports/in";
+import { Mark } from "../../domain/values/tile.value";
 
 const controller = dependency<GamePort>("GamePort");
 if (!controller)
@@ -17,9 +18,10 @@ if (!controller)
 
 const board = ref<BoardModel | undefined>(undefined);
 const timer = ref<InstanceType<typeof Timer> | null>(null);
+const winner = ref<Mark | undefined>(undefined);
 
 const router = useRouter();
-const { nextMark, hasWinner, winner, hasStepsLeft } = useGameReport(controller);
+const { nextMark, hasStepsLeft } = useGameReport(controller);
 
 onBeforeMount(() => {
   board.value = controller?.getCurrentBoard();
@@ -31,16 +33,24 @@ onMounted(() => {
 });
 
 function onTileClick(index: number) {
+  if(controller?.getMatchState() == "finished") return;
+  
   const boardMarked = controller?.markBoardAt(board.value as BoardModel, index);
   if (!boardMarked) return;
   if (!timer.value?.hasStarted) timer.value?.start();
 
-  const hasWinner = controller?.hasWinner(board.value as BoardModel) ?? false;
+  const winnerMark = board.value?.evaluateWinner();
+
+  const hasWinner = winnerMark != undefined;
   const hasNoStepsLeft =
     controller?.hasNoStepsLeft(board.value as BoardModel) ?? false;
   const cannotContinue = hasWinner || hasNoStepsLeft;
   if (cannotContinue) {
-    controller?.matchStop(undefined);
+    if(hasWinner) controller?.matchStop(winnerMark);
+    else controller?.matchStop(undefined);
+
+    winner.value = winnerMark;
+
     timer.value?.stop();
     return;
   }
@@ -66,7 +76,7 @@ async function quitGame() {
         <Timer ref="timer" />
       </section>
       <CurrentTurn
-        v-if="hasStepsLeft && !hasWinner && nextMark"
+        v-if="hasStepsLeft && !winner && nextMark"
         :mark="nextMark"
       />
       <Winner v-else :winner="winner" />

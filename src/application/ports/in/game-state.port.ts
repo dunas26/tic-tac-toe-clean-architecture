@@ -1,4 +1,5 @@
 import { Mark } from "../../../domain/values/tile.value";
+import { MatchState } from "../../../infrastructure/persistence/stores/game.store";
 
 export interface GameStatePort {
     getCurrentMark(): Mark;
@@ -7,4 +8,6 @@ export interface GameStatePort {
     matchStart(): void;
     matchStop(winner: Mark | undefined): void;
     switchTurn(): Mark;
+    getWinner(): Mark | undefined;
+    getMatchState(): MatchState;
 }

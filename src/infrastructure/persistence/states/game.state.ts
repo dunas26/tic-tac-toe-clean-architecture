@@ -1,7 +1,7 @@
 import { injectable } from "inversify";
 import { GameStatePort } from "../../../application/ports/in";
 import { Mark } from "../../../domain/values/tile.value";
-import { useGameStore } from "../stores/game.store";
+import { MatchState, useGameStore } from "../stores/game.store";
 
 @injectable()
 export class GameState implements GameStatePort {
@@ -14,5 +14,7 @@ export class GameState implements GameStatePort {
     matchStart(): void { this.store.matchStart(); }
     matchStop(winner: Mark | undefined): void { this.store.matchStop(winner); }
     switchTurn(): Mark { return this.store.switchTurn(); }
+    getWinner(): Mark | undefined { return this.store.winner }
+    getMatchState(): MatchState { return this.store.state }
 
 }

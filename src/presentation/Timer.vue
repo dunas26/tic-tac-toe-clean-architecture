@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from "vue";
-import { useTimer } from "../infrastructure/composables/timer";
+import { useTimer } from "../infrastructure/composables";
 
 const timer = useTimer(50);
 

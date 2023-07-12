@@ -4,6 +4,7 @@ import { BoardModel } from "../../domain/models";
 import type { GetCurrentBoardUseCase, SaveBoardUseCase } from "../../application/usecases/usecase";
 import type { GameStatePort } from "../../application/ports/in";
 import { Mark } from "../../domain/values/tile.value";
+import { MatchState } from "../persistence/stores/game.store";
 
 @injectable()
 export class GameController implements GamePort {
@@ -32,8 +33,8 @@ export class GameController implements GamePort {
         this.gameState.matchStop(winner);
     }
 
-    getWinner(board: BoardModel): Mark | undefined {
-        return board.getWinner();
+    getWinner(): Mark | undefined {
+        return this.gameState.getWinner();
     }
 
     stepsLeft(board: BoardModel) {
@@ -43,15 +44,8 @@ export class GameController implements GamePort {
     markBoardAt(board: BoardModel, index: number): boolean {
         const mark = this.getCurrentMark();
         if (!mark || !board) return false;
-        this.markBoard(board, index, mark);
-        return true;
+        return this.markBoard(board, index, mark);
     }
-
-    hasWinner(board: BoardModel): boolean {
-        const hasWinner = board.getWinner() != undefined;
-        return hasWinner;
-    }
-
 
     hasNoStepsLeft(board: BoardModel): boolean {
         const stepsLeft = board.getStepsLeft() ?? 9;
@@ -61,6 +55,10 @@ export class GameController implements GamePort {
     saveBoard(board: BoardModel): boolean {
         this._saveBoard.do(board);
         return true;
+    }
+
+    public getMatchState(): MatchState {
+        return this.gameState.getMatchState();
     }
 
     private markBoard(board: BoardModel, index: number, mark: Mark): boolean {

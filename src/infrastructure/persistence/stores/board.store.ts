@@ -8,8 +8,7 @@ export interface BoardStoreState {
 export const useBoardStore = defineStore('board', {
     state: (): BoardStoreState => ({ board: undefined }),
     getters: {
-        boardDefined: (state) => !state.board,
-        getCurrentBoard: (state) => state.board as BoardModel,
+        boardDefined: (state) => !!state.board,
     },
     actions: {
         setCurrentBoard(board: BoardModel) {

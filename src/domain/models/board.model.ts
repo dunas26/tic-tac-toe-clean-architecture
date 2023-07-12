@@ -10,45 +10,20 @@ export class BoardModel {
     public readonly id: string;
     public moveCount: number;
     public tiles!: TileValue[];
-    private winner?: Mark;
 
     public mark(tile: number, mark: Mark): boolean {
-        if(this.winner) return false;
         if (!this.validTileNumber(tile)) throw new Error("Invalid tile number");
         if (!this.canMarkTile(tile)) return false;
         this.tiles[tile] = new TileValue(mark);
         this.moveCount++;
-        this.winner = this.evaluateWinner();
         return true;
-    }
-
-    public getWinner(): Mark | undefined {
-        if(this.winner) return this.winner;
-        const winner = this.evaluateWinner();
-        return winner;
     }
 
     public getStepsLeft() {
         return 9 - this.moveCount;
     }
 
-    private validTileNumber(tile: number): boolean {
-        if (this.tiles.length == 0) return false;
-        return tile >= 0 && tile < this.tiles.length;
-    }
-
-    private setUpTiles(tiles?: TileValue[]): this {
-        this.tiles = tiles
-            ? tiles
-            : Array<TileValue>(9).fill(new TileValue(""));
-        return this;
-    }
-
-    private canMarkTile(index: number): boolean {
-        return this.tiles[index].content == "";
-    }
-
-    private evaluateWinner(): Mark | undefined {
+    public evaluateWinner(): Mark | undefined {
         const rows = [
             [0, 1, 2],
             [3, 4, 5],
@@ -69,4 +44,21 @@ export class BoardModel {
             ? this.tiles[winner[0]].content
             : undefined;
     }
+
+    private validTileNumber(tile: number): boolean {
+        if (this.tiles.length == 0) return false;
+        return tile >= 0 && tile < this.tiles.length;
+    }
+
+    private setUpTiles(tiles?: TileValue[]): this {
+        this.tiles = tiles
+            ? tiles
+            : Array<TileValue>(9).fill(new TileValue(""));
+        return this;
+    }
+
+    private canMarkTile(index: number): boolean {
+        return this.tiles[index].content == "";
+    }
+
 }

@@ -1,6 +1,6 @@
 import { injectable } from "inversify";
 import { BoardStatePort } from "../../../application/ports/in";
-import { useBoardStore } from "../stores/board.store";
+import { useBoardStore } from "../stores";
 import { BoardModel } from "../../../domain/models";
 
 @injectable()
@@ -13,7 +13,7 @@ export class BoardState implements BoardStatePort {
     }
 
     getCurrentBoard(): BoardModel {
-        return this.store.getCurrentBoard;
+        return this.store.board as BoardModel;
     }
 
     isCurrentBoardDefined(): boolean {
